@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewData["Title"] = "AllContact";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+@model List<Contact>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+<!-- SheetJS Library for Excel export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- Custom CSS to disable hover effect and increase font size -->
+<style>
+    /* Disable hover effect */
+    #allTable tbody tr:hover {
+        background-color: transparent !important;
+    }
+
+    /* Increase font size for DataTables controls */
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+        font-size: 15px;
+    }
+
+    .dataTables_wrapper .dataTables_length select,
+    .dataTables_wrapper .dataTables_filter input {
+        font-size: 15px;
+    }
+</style>
+
+<div class="container mt-3">
+    <div class="text-center mb-3" style="color:white!important;background-image: linear-gradient(to right, #30cfd0 0%, #330867 100%);padding:1px 0px;border-radius:3px;">
+        <h5 class="text-center p-1" style="font-size: 20px;display:block;">All Contact</h5>
+    </div>
+
+    <div class="mt-4">
+        <div class="card">
+            <div class="table-responsive p-4 table-striped">
+                <table class="table table-bordered" id="allTable">
+                    <thead class="text-center">
+                        <tr style="font-size: 15px;">
+                            <th><b style="font-size: 15px; display:block;" class="text-center text-responsive">Name</b></th>
+                            <th><b style="font-size: 15px; display:block;" class="text-center text-responsive">Email</b></th>
+                            <th><b style="font-size: 15px; display:block;" class="text-center text-responsive">Subject</b></th>
+                            <th><b style="font-size: 15px; display:block;" class="text-center text-responsive">Message</b></th>
+                            @*         <th><b style="font-size: 15px; display:block;" class="text-center text-responsive">ZIP File</b></th>
+                            <th><b style="font-size: 15px; display:block;" class="text-center text-responsive">Document</b></th> *@
+                            @* <th><b style="font-size: 15px; display:block;" class="text-center text-responsive">Action</b></th> *@
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        @if (Model != null)
+                        {
+                            @foreach (var data in Model)
+                            {
+                                <tr>
+                                    <td style="font-size:15px;">
+                                        @data.CName
+                                    </td>
+                                    <td style="font-size:15px;">
+                                        @data.CEmail
+                                    </td>
+                                    <td style="font-size:15px;">
+                                        @data.CSubject
+                                    </td>
+
+                                    <td style="font-size:15px;">
+                                        @data.CMessage
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#allTable').DataTable({
+            "paging": true,
+            "searching": true,
+            "ordering": true,
+            "lengthMenu": [5, 10, 25, 50],
+            "pageLength": 5,
+            "language": {
+                "paginate": {
+                    "previous": "Prev",
+                    "next": "Next"
+                }
+            }
+        });
+
+
+    });
+</script>
+
